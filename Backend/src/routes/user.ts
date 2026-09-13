@@ -17,13 +17,19 @@ const signupSchema = z.object({
 
 })
 
+const signinSchema = z.object({
+    email: z.email(),
+    password: z.string().min(6)
+});
+
 Userrouter.post("/signup" , async (req,res) => {
     const body=req.body;
     const parseSchema= signupSchema.safeParse(req.body);
     if(!parseSchema.success){
-        return res.json({
-            message:"Incorrect Inputs"
-        })
+        
+        return res.status(400).json({ 
+            message: "Incorrect Inputs" 
+        });
     }
 
     const { firstName, lastName, email, password } = parseSchema.data;
@@ -59,6 +65,49 @@ Userrouter.post("/signup" , async (req,res) => {
 
 })
 
-Userrouter.post("/signin" , (req,res)=>{
+Userrouter.post("/signin" , async (req,res)=>{
+    const parseSchema = signinSchema.safeParse(req.body);
+    if(!parseSchema.success){
+        return res.status(400).json({
+            message:"Incorrect inputs"
+        })
+    }
+    
+    const {email , password}= parseSchema.data
+
+    try {
+
+        const exisitingUser = await UserModel.findOne({email});
+
+        if(!exisitingUser){
+            return res.status(401).json({ message: "Invalid credentials" });
+
+        }
+
+        const isPasswordCorrect = await bcrypt.compare(password, exisitingUser.password);
+
+        if(!isPasswordCorrect){
+             return res.status(401).json({ message: "Invalid credentials" });
+
+        }
+
+
+        const token = jwt.sign({
+            userId: exisitingUser._id
+
+
+        } , JWT_PASSWORD)
+
+
+        res.status(200).json({
+            message: "Signed in successfully",
+            token: token
+        });
+
+    }catch(error){
+        console.log(error);
+        res.status(500).json({ message: "Something went wrong" });
+
+    }
     
 })

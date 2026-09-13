@@ -5,10 +5,12 @@ import cors from "cors";
 
 
 const app= express();
-const Mainrouter = express.Router();
+
 
 app.use(cors({ origin:"http://localhost:3000"}));
 app.use(express.json())
+
+const Mainrouter = express.Router();
 
 
 Mainrouter.use("/app/v1/user" ,  Userrouter);
