@@ -21,7 +21,9 @@
     "zod": "^4.6.2"
   },
   "dependencies": {
+    "@types/jsonwebtoken": "^9.0.10",
     "cors": "^2.8.6",
-    "dotenv": "^17.4.2"
+    "dotenv": "^17.4.2",
+    "jsonwebtoken": "^9.0.3"
   }
 }

@@ -12,7 +12,7 @@ app.use(express.json())
 
 
 Mainrouter.use("/app/v1/user" ,  Userrouter);
-Mainrouter.use("/app/v1/account" , Accountrouter)
+Mainrouter.use("/app/v2/account" , Accountrouter)
 app.use(Mainrouter); 
 
 
