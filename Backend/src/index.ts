@@ -1,50 +1,20 @@
-import express from "express";
-import cors from "cors"
-import { UserModel } from "./db.js";
-import mongoose from "mongoose";
-import dotenv from "dotenv"
-dotenv.config();
+import express , {Router} from "express";
+import { Accountrouter } from "./routes/account.js";
+import { Userrouter } from "./routes/user.js";
+import cors from "cors";
 
-const app = express();
+
+const app= express();
+const Mainrouter = express.Router();
+
+app.use(cors({ origin:"http://localhost:3000"}));
 app.use(express.json())
 
-app.use(cors({
-    origin:[
-        "http://localhost:3000"
 
-    ]}));
-
-app.post("/app/v1/signup" , async (req , res)=>{
-    const username = req.body.username
-    const password = req.body.password
-
-    try{
-        await UserModel.create({
-            username:username,
-            password:password
-        })
-
-        res.json({
-            message:"You have Signup"
-        })
-    }catch(error){
-        console.error(error); 
-    res.status(500).json({ message: "Something went wrong" });
-    }
-
-})
-
-app.post("/app/v1/signin" , (req , res)=>{
-
-
-})
-
-
-app.get("/app/v1/payment/history" , (req , res)=>{
-
-
-})
-
+Mainrouter.use("/app/v1/user" ,  Userrouter);
+Mainrouter.use("/app/v1/account" , Accountrouter)
+app.use(Mainrouter); 
 
 
 app.listen(3000);
+
