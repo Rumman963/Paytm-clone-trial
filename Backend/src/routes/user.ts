@@ -23,7 +23,6 @@ const signinSchema = z.object({
 });
 
 Userrouter.post("/signup" , async (req,res) => {
-    const body=req.body;
     const parseSchema= signupSchema.safeParse(req.body);
     if(!parseSchema.success){
         
@@ -33,6 +32,8 @@ Userrouter.post("/signup" , async (req,res) => {
     }
 
     const { firstName, lastName, email, password } = parseSchema.data;
+
+ try{
 
     const existingUser = await UserModel.findOne({email});
 
@@ -62,6 +63,11 @@ Userrouter.post("/signup" , async (req,res) => {
         message:"user created successfully",
         token:token
      })
+}catch(error){
+    console.error(error);
+    res.status(500).json({ message: "Something went wrong" });
+
+}   
 
 })
 
