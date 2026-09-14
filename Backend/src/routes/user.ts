@@ -23,6 +23,14 @@ const signinSchema = z.object({
     password: z.string().min(6)
 });
 
+
+const updateSchema = z.object({
+    firstName:z.string().optional(),
+    lastName:z.string().optional(),
+    password:z.string().optional()
+
+})
+
 Userrouter.post("/signup" , async (req,res) => {
     const parseSchema= signupSchema.safeParse(req.body);
     if(!parseSchema.success){
@@ -120,6 +128,41 @@ Userrouter.post("/signin"  ,async (req,res)=>{
 })
 
 
-Userrouter.put("/updateInfo", authMiddleware , (req,res)=>{
-    
+Userrouter.put("/updateInfo", authMiddleware , async (req,res)=>{
+
+    const parseSchema = updateSchema.safeParse(req.body);
+    if(!parseSchema.success){
+        return res.status(411).json({
+            message:"error while updating information"
+        })
+    }
+
+
+    const updates = parseSchema.data
+
+    if(updates.password){
+        updates.password = await bcrypt.hash(updates.password , 10)
+    }
+
+
+    try{
+
+            const updateExistingUser = await UserModel.updateOne(
+                { _id: req.userId }, 
+                updates
+            )
+            res.json({
+             message:"update successfully"
+          })
+    }catch(error){
+        console.log(error);
+        res.status(500).json({ message: "Something went wrong" });
+    }
+
+         
+})
+
+
+Userrouter.get("/userssearch" , (req ,res)=>{
+
 })
