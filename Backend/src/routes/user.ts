@@ -2,7 +2,7 @@ import  express , { Router } from "express";
 import { JWT_PASSWORD } from "../config.js";
 import jwt from "jsonwebtoken";
 import {z} from "zod";
-import { UserModel } from "../db.js";
+import { accountModel, UserModel } from "../db.js";
 import bcrypt from "bcrypt";
 import { authMiddleware } from "../middleware.js";
 
@@ -63,6 +63,13 @@ Userrouter.post("/signup" , async (req,res) => {
         email,
         password:hashedPassword
      });
+     
+
+     //create account on signup
+     await accountModel.create({
+        userId: dbUser._id,
+        balance: 1*Math.floor(Math.random()*10000)
+     })
 
      const token = jwt.sign({
         userId:dbUser._id

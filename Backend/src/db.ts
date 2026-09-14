@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { Schema , model } from "mongoose";
 import dotenv from 'dotenv';
+import { int } from "zod";
 dotenv.config();
 mongoose.connect(process.env.MONGO_URL as string);
 
@@ -13,6 +14,11 @@ const userSchema = new Schema({
 
 })
 
+export const accountSchema = new Schema({
+   userId:{type:mongoose.Schema.Types.ObjectId , ref:'users' , required:true},
+   balance:{type: Number , required: true}
+
+})
 
 export const UserModel = model("users" , userSchema);
-
+export const accountModel = model("account" , accountSchema)
