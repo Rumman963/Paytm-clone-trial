@@ -24,7 +24,14 @@ export function authMiddleware(req:Request,res:Response,next:NextFunction){
 try {
     const decoded = jwt.verify(token , JWT_PASSWORD) as {userId:string};
    
+    if(decoded.userId){
     req.userId = decoded.userId;
+    } else{
+        return res.status(403).json({
+            message: "Invalid token payload"
+        })
+
+    }
 
     next();
 }catch(error){

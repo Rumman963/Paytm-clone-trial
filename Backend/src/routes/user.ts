@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import {z} from "zod";
 import { UserModel } from "../db.js";
 import bcrypt from "bcrypt";
+import { authMiddleware } from "../middleware.js";
 
 
 export const Userrouter = express.Router();
@@ -71,7 +72,7 @@ Userrouter.post("/signup" , async (req,res) => {
 
 })
 
-Userrouter.post("/signin" , async (req,res)=>{
+Userrouter.post("/signin"  ,async (req,res)=>{
     const parseSchema = signinSchema.safeParse(req.body);
     if(!parseSchema.success){
         return res.status(400).json({
@@ -119,6 +120,6 @@ Userrouter.post("/signin" , async (req,res)=>{
 })
 
 
-Userrouter.put("/updateInfo" , (req,res)=>{
+Userrouter.put("/updateInfo", authMiddleware , (req,res)=>{
     
 })
