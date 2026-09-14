@@ -117,3 +117,8 @@ Userrouter.post("/signin" , async (req,res)=>{
     }
     
 })
+
+
+Userrouter.put("/updateInfo" , (req,res)=>{
+    
+})
