@@ -64,9 +64,27 @@ Accountrouter.post("/transfer", authMiddleware, async (req,res)=>{
         message:"transfer successful"
        })
 
-    }catch(e){
-        
-    } 
+    }catch (e) {
+    await session.abortTransaction();
+    console.error(e);
+    res.status(500).json({ message: "Something went wrong" });
+     
+    } finally {
+    session.endSession();
+}
+})
+
+
+Accountrouter.get("/balance" ,authMiddleware, async(req,res)=>{
+
+    const account = await accountModel.findOne({
+        userId: req.userId as string
+    });
+
+
+    res.json({
+        balance:account?.balance
+    })
 
 })
 
