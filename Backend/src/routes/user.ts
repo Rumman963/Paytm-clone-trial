@@ -128,7 +128,7 @@ Userrouter.post("/signin"  ,async (req,res)=>{
 })
 
 
-Userrouter.put("/updateInfo", authMiddleware , async (req,res)=>{
+Userrouter.put("/update", authMiddleware , async (req,res)=>{
 
     const parseSchema = updateSchema.safeParse(req.body);
     if(!parseSchema.success){
@@ -163,6 +163,38 @@ Userrouter.put("/updateInfo", authMiddleware , async (req,res)=>{
 })
 
 
-Userrouter.get("/userssearch" , (req ,res)=>{
+Userrouter.get("/search" , async (req ,res)=>{
+
+    const filter = (req.query.filter as string) || "";
+
+
+   
+    const users = await UserModel.find({
+        $or:[{
+            firstName:{
+                 $regex:filter, //match substring in search
+                 $options:"i"
+            }
+        }, {
+            lastName:{
+                $regex:filter,
+                $options:"i"
+            }
+        
+        
+        }]
+
+    })
+
+
+    res.json({
+        user:users.map(user=>({
+         firstName:user.firstName,
+         lastName:user.lastName,
+         email:user.email,
+         _id:user._id
+
+        }))
+    })
 
 })
