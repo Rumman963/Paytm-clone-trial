@@ -1,0 +1,1 @@
+export const BACKEND_URL="https://paytm-clone-trial.onrender.com"
