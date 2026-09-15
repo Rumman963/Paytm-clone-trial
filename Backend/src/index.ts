@@ -9,7 +9,6 @@ const app= express();
 
 app.use(cors(
     { origin:[
-        "http://localhost:3000",
          "http://localhost:5173"
     ]   
 
@@ -25,5 +24,7 @@ Mainrouter.use("/app/v2/account" , Accountrouter)
 app.use(Mainrouter); 
 
 
-app.listen(3000);
-
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
