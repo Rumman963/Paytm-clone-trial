@@ -9,7 +9,7 @@ const app= express();
 
 app.use(cors(
     { origin:[
-         "https://paytm-clone-trial-umber.vercel.app/"
+         "https://paytm-clone-trial-umber.vercel.app"
     ]   
 
     })
