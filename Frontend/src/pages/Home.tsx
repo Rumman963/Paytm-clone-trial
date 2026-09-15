@@ -20,7 +20,7 @@ export function Home() {
             Sign in
           </Link>
 
-          <Button>
+          <Button className="bg-[#4F46E5] hover:bg-[#4338CA] text-white">
             <Link to="/signup">Get Started</Link>
           </Button>
         </div>
@@ -37,7 +37,7 @@ export function Home() {
             Send money to anyone, anytime. Fast, simple and secure.
           </p>
 
-          <Button size="lg" className="mt-8">
+          <Button  size="lg" className="mt-8 bg-indigo-600 hover:bg-indigo-700">
             <Link to="/signup">Get Started</Link>
           </Button>
         </section>

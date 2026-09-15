@@ -43,14 +43,14 @@ export function Signup(){
     }
     return (
 
-        <div className="min-h-screen flex items-center justify-center">
-            <Card className="w-full max-w-md p-6">
+        <div className="min-h-screen flex items-center justify-center bg-slate-50">
+            <Card className="w-full max-w-md p-6  space-y-4 shadow-lg border-slate-200">
 
                 <div className="flex justify-center"> <Logo/> </div>
 
-                <h1 className="text-2xl font-semibold">Create an Account</h1>
+                <h1 className="text-2xl font-semibold text-center text-slate-900">Create an Account</h1>
 
-                 <p className="text-sm text-gray-500">Enter your details to get started</p>
+                 <p className="text-sm text-gray-500 text-center mb-4">Enter your details to get started</p>
 
                  <form onSubmit={form.handleSubmit(onSubmit)} 
                  className="space-y-2">
@@ -101,17 +101,17 @@ export function Signup(){
                </Field>
 
 
-         <Button type="submit" className="w-full">
+         <Button type="submit" className="w-full bg-indigo-600 hover:bg-indigo-700 text-white">
             Create account
           
            </Button>
                
          </form>
                 
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-600 text-center">
            Already have an account?{" "}
          <Link to="/signin"
-    className="font-medium text-blue-600 hover:underline">
+    className="font-medium text-indigo-600  hover:underline">
           Sign in
             </Link>
                </p>

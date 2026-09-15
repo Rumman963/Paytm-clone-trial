@@ -33,18 +33,18 @@ export function Signin() {
      };
 
     return (
-        <div className="min-h-screen flex items-center justify-center">
-            <Card className="w-full max-w-md p-6">
+        <div className="min-h-screen flex items-center justify-center bg-slate-50">
+            <Card className="w-full max-w-md p-6 space-y-4 shadow-lg border-slate-200">
 
                 <div className="flex justify-center">
                     <Logo />
                 </div>
 
-                <h1 className="text-2xl font-semibold">
+                <h1 className="text-2xl font-semibold text-center text-slate-900">
                     Welcome Back
                 </h1>
 
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-gray-500 text-center mb-4">
                     Sign in to continue to your account
                 </p>
 
@@ -71,18 +71,18 @@ export function Signin() {
 
                     <Button
                         type="submit"
-                        className="w-full"
+                        className="w-full bg-indigo-600 hover:bg-indigo-700 text-white"
                     >
                         Sign in
                     </Button>
 
                 </form>
 
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600 text-center">
                     Don't have an account?{" "}
                     <Link
                         to="/signup"
-                        className="font-medium text-blue-600 hover:underline"
+                        className="font-medium text-indigo-600 hover:underline"
                     >
                         Sign up
                     </Link>
